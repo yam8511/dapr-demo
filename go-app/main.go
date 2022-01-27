@@ -25,7 +25,7 @@ func main() {
 		resJSON(rw, count)
 	})
 
-	http.HandleFunc("/upload", func(rw http.ResponseWriter, r *http.Request) {
+	http.HandleFunc("/inference", func(rw http.ResponseWriter, r *http.Request) {
 		log.Println("from --> ", r.RemoteAddr)
 		d := requestBytes(r)
 		resRaw(rw, d)

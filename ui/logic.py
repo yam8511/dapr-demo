@@ -13,7 +13,7 @@ app_id = "app-1"
 
 def count():
     with DaprClient() as d:
-        res = d.invoke_method(app_id, "count", "")
+        res = d.invoke_method(app_id, "count", "", http_verb="POST")
         return res.json()
 
 
@@ -25,11 +25,11 @@ def sum(a, b):
                 "B": b,
             }
         )
-        res = d.invoke_method(app_id, "sum", req)
+        res = d.invoke_method(app_id, "sum", req, http_verb="POST")
         return res.json()
 
 
-def upload(f):
+def inference(img):
     with DaprClient() as d:
-        res = d.invoke_method(app_id, "uplaod", f)
+        res = d.invoke_method(app_id, "inference", img, http_verb="POST")
         return res.data

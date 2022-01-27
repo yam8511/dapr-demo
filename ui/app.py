@@ -11,21 +11,29 @@ import logic
 st.title("Sample Code")
 
 
+st.write("========================================================================")
 st.write("點擊按鈕，顯示計數")
 if st.button("click"):
     st.write(f"{logic.count()}")
 
 
+st.write("========================================================================")
 st.write("輸入資料，總和")
 a = st.number_input("a")
 b = st.number_input("b")
 if st.button("sum"):
     st.write(f"a + b = {logic.sum(a,b)}")
 
-st.write("上傳圖片，偵測處理")
-imgs = st.file_uploader("img", accept_multiple_files=True)
-imgs
-# [img.name for img in imgs]
 
+st.write("========================================================================")
+st.write("上傳圖片，偵測處理，顯示回傳圖片")
+img = st.file_uploader("img")
 if st.button("upload"):
-    logic.upload(imgs[0])
+    st.image(logic.inference(img))
+
+
+st.write("========================================================================")
+st.write("開啟鏡頭，偵測處理，顯示回傳圖片")
+cam = st.camera_input("camera")
+if cam is not None:
+    st.image(logic.inference(cam))
