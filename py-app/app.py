@@ -8,7 +8,7 @@ count = 0
 def sum_handler():
     print("from --->", request.remote_addr)
     req = request.json
-    return jsonify(req["A"], req["B"])
+    return jsonify(req["A"] + req["B"])
 
 
 @app.post("/count")
