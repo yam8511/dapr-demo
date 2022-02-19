@@ -6,7 +6,7 @@ ps. API = Web Service
 """
 
 import json
-from curl import curl_dapr
+from curl import curl_dapr, curl_dapr_json
 
 
 app_id = "app-1"
@@ -14,7 +14,6 @@ app_id = "app-1"
 
 def count():
     res = curl_dapr(app_id, "count", "")
-    print(res.headers)
     return json.loads(res.data)
     # with DaprClient() as d:
     #     res = d.invoke_method(app_id, "count", "", http_verb="POST")
@@ -22,14 +21,12 @@ def count():
 
 
 def sum(a, b):
-    req = json.dumps(
-        {
-            "A": a,
-            "B": b,
-        }
-    )
+    req = {
+        "A": a,
+        "B": b,
+    }
 
-    res = curl_dapr(app_id, "sum", req)
+    res = curl_dapr_json(app_id, "sum", req)
     return json.loads(res.data)
     # with DaprClient() as d:
     #     res = d.invoke_method(app_id, "sum", req, http_verb="POST")

@@ -41,5 +41,17 @@ def curl_json(body, url="/", method="POST", headers={}, conn=None):
     return curl(body, url, method, headers, conn)
 
 
-def curl_dapr(app_id, method, body):
-    return curl(body, url="/" + method, headers={"dapr-app-id": app_id})
+def curl_dapr(app_id, method, body, http_verb="POST", headers={}, conn=None):
+    if headers is None:
+        headers = {}
+    headers.setdefault("dapr-app-id", app_id)
+    return curl(body, "/" + method, http_verb, headers, conn)
+
+
+def curl_dapr_json(app_id, method, body, http_verb="POST", headers={}, conn=None):
+    body = json.dumps(body)
+    if headers is None:
+        headers = {}
+    headers.setdefault("Content-Type", "application/json")
+    headers.setdefault("dapr-app-id", app_id)
+    return curl(body, "/" + method, http_verb, headers, conn)
